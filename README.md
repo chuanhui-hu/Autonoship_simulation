@@ -25,18 +25,14 @@ According to the link, open a terminal and run:
 
 ### 2. Create Workspace & Environment Configuration
 
-Copy the autonoship_gazebo_demo.zip file into the /home directory. In a terminal, run:
-    
-    sudo apt-get install zip unzip
-    cd
-    unzip autonoship_gazebo_demo.zip -d ~
-    
+Download the /autonoship_simulation and /usv_gazebo_plugins into the /home directory. In a terminal, run:
+ 
     mkdir -p ~/autonoship/src
     cd ~/autonoship/
     catkin_make
 
-    cp ~/autonoship_gazebo_demo/src/autonoship_simulation ~/autonoship/src -r
-    cp ~/autonoship_gazebo_demo/src/usv_gazebo_plugins ~/autonoship/src -r
+    cp ~/autonoship_simulation ~/autonoship/src -r
+    cp ~/usv_gazebo_plugins ~/autonoship/src -r
     
     sudo apt-get install ros-kinetic-hector-gazebo-plugins
     
