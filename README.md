@@ -34,7 +34,7 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
     cp ~/autonoship_simulation ~/autonoship/src -r
     cp ~/usv_gazebo_plugins ~/autonoship/src -r
     
-    sudo apt-get install ros-kinetic-hector-gazebo-plugins
+    sudo apt-get install ros-kinetic-hector-gazebo-plugins ros-kinetic-pid  (updated on 10/30/2020)
     
     catkin_make
     source devel/setup.bash
@@ -42,10 +42,20 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
 
     roscd autonoship_simulation
     cd scripts
-    chmod +x key_publisher.py
-    chmod +x keys_to_rudder.py
+    chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py  (updated on 10/30/2020)
 
-### 3. Usage
+### 3. Install ARIAC packages
+
+    mkdir -p ~/ariac_ws/src
+    cd ~/ariac_ws/src
+    git clone https://bitbucket.org/osrf/ariac -b ariac_2017
+
+    cd ~/ariac_ws
+    catkin_make
+    source ~/ariac_ws/devel/setup.bash
+    echo "source ~/ariac_ws/devel/setup.bash" >> ~/.bashrc
+
+### 4. Usage
 
 To control the ownship with keyboard ("w, a, s, d, q, e"), in a terminal, run:
     
@@ -63,7 +73,7 @@ To change the RPM of the radar to 80, run in a terminal:
 
     rostopic pub own_ship/rpm std_msgs/Float64 80
     
-### 4. Issues
+### 5. Issues
 
 If gazebo exports error "No namespace found", try:
 
