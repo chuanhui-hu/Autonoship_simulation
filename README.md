@@ -23,7 +23,7 @@ According to the link, open a terminal and run:
 
     sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-### 2. Create Workspace & Environment Configuration
+### 2. Create Workspace & Environment Configuration  (updated on 10/30/2020)
 
 Download the /autonoship_simulation and /usv_gazebo_plugins into the /home directory. In a terminal, run:
  
@@ -34,7 +34,7 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
     cp ~/autonoship_simulation ~/autonoship/src -r
     cp ~/usv_gazebo_plugins ~/autonoship/src -r
     
-    sudo apt-get install ros-kinetic-hector-gazebo-plugins ros-kinetic-pid  (updated on 10/30/2020)
+    sudo apt-get install ros-kinetic-hector-gazebo-plugins ros-kinetic-pid  
     
     catkin_make
     source devel/setup.bash
@@ -42,9 +42,9 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
 
     roscd autonoship_simulation
     cd scripts
-    chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py  (updated on 10/30/2020)
+    chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py
 
-### 3. Install ARIAC packages
+### 3. Install ARIAC packages  (updated on 10/30/2020)
 
     mkdir -p ~/ariac_ws/src
     cd ~/ariac_ws/src
