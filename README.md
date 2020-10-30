@@ -23,7 +23,17 @@ According to the link, open a terminal and run:
 
     sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-### 2. Create Workspace & Environment Configuration  (updated on 10/30/2020)
+### 2. update Gazebo  (updated on 10/30/2020)
+
+    sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+    wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+    
+    sudo apt-get update
+    sudo apt-get install gazebo7
+    sudo apt-get install libgazebo7-dev libignition-math2-dev
+
+
+### 3. Create Workspace & Environment Configuration  (updated on 10/30/2020)
 
 Download the /autonoship_simulation and /usv_gazebo_plugins into the /home directory. In a terminal, run:
  
@@ -44,7 +54,7 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
     cd scripts
     chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py
 
-### 3. Install ARIAC packages  (updated on 10/30/2020)
+### 4. Install ARIAC packages  (updated on 10/30/2020)
 
     mkdir -p ~/ariac_ws/src
     cd ~/ariac_ws/src
@@ -55,11 +65,15 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
     source ~/ariac_ws/devel/setup.bash
     echo "source ~/ariac_ws/devel/setup.bash" >> ~/.bashrc
 
-### 4. Usage
+### 5. Usage  (updated on 10/30/2020)
 
 To control the ownship with keyboard ("w, a, s, d, q, e"), in a terminal, run:
     
     roslaunch autonoship_simulation autonoship_gazebo.launch
+    
+To run a certain testing scenario (e.g. scenario8), run:
+    
+    roslaunch autonoship_simulation autonoship_gazebo.launch scenario:=scenario8
     
 To control targetships, publish message in the terminal:
 
@@ -67,13 +81,21 @@ To control targetships, publish message in the terminal:
     
 To test the radar module, echo the radar feedback in the terminal:
 
-    rostopic echo own_ship/logical_camera
+    rostopic echo ownship/logical_camera
 
 To change the RPM of the radar to 80, run in a terminal:
 
-    rostopic pub own_ship/rpm std_msgs/Float64 80
+    rostopic pub ownship/rpm std_msgs/Float64 80
     
-### 5. Issues
+To test the radar tracking module, echo the state of a targetship (e.g. targetship1):
+
+    rostopic echo ownship/targetship1/
+    
+### 6. Issues
+
+If not all the targetships are shown in the simulation:
+
+    try configure the range of the camera in the menu bar: World -> GUI -> camera -> clip -> far
 
 If gazebo exports error "No namespace found", try:
 
@@ -82,4 +104,4 @@ If gazebo exports error "No namespace found", try:
 
 If the simulation is extremely slow or even fails to start:
 
-    1. try reducing the number of targetships in ~/autonoship/src/autonoship_simulation/launch/autonoship_gazebo.launch
+    1. try running the scenario with less targetships (e.g. scenario1 only has one targetship)
