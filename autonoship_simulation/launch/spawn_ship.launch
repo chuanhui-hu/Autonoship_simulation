@@ -10,12 +10,18 @@
   <arg name="p3d" default="false"/> 
   <arg name="radar" default="false"/> 
 
-  <arg name="x" default="0.0" />
-  <arg name="y" default="0.0" />
-  <arg name="z" default="0.1" />
-  <arg name="P" default="0" />
-  <arg name="R" default="0" />
-  <arg name="Y" default="0" />
+  <arg name="bearing" default="0.0" />   <!-- degrees -->
+  <arg name="distance" default="0.0" />  <!--  miles  -->
+  <arg name="course" default="0.0" />    <!-- degrees -->
+  <arg name="speed" default="15.0" />    <!--  knots  -->
+
+  <arg name="x" value="$(eval cos(3.1415/180*arg('bearing')) * arg('distance') * 1852)" />
+  <arg name="y" value="$(eval -sin(3.1415/180*arg('bearing')) * arg('distance') * 1852)" />
+  <arg name="z" value="0.1" />
+  <arg name="P" value="0" />
+  <arg name="R" value="0" />
+  <arg name="Y" value="$(eval 3.1415/180 * (360 - arg('course')))" />
+
   <arg name="ownship" default="true" />
 
   <!-- Load robot model -->
@@ -40,6 +46,56 @@
       <param name="publish_frequency" type="double" value="10.0" />
       <remap from="robot_description" to="$(arg namespace)_description" />
     </node>
+
+    <!-- velocity initialization -->
+    <node name="initial_vel_pid" pkg="pid" type="controller" >
+      <param name="Kp" value="1000000.0" />
+      <param name="Ki" value="0.1" />
+      <param name="Kd" value="1.0" />
+      <param name="upper_limit" value="10000000" />
+      <param name="lower_limit" value="0" />
+      <param name="windup_limit" value="10" />
+      <param name="max_loop_frequency" value="10.0" />
+      <param name="min_loop_frequency" value="10.0" />
+      <param name="topic_from_controller" value="u2" />
+      <param name="topic_from_plant" value="vel_x" />      
+    </node>
+
+    <node name="setpoint_pub" pkg="autonoship_simulation" type="setpoint_pub.py">
+      <param name="speed" value="$(arg speed)" />
+    </node>
+
+<!---->
+    <node name="radar_tracking" pkg="autonoship_simulation" type="radar_tracking.py">
+      <param name="nm" value="True" />
+    </node>
+
+
+    <!-- track the state of targetships with Kalman Filter -->
+    <group ns="ownship">
+      <node name="ownship_state" pkg="autonoship_simulation" type="target_state.py" >
+        <param name="nm" value="True" />
+      </node>
+    </group>
+
+    <group ns="targetship1">
+      <node name="targetship1_state" pkg="autonoship_simulation" type="target_state.py" >
+        <param name="nm" value="True" />
+      </node>
+    </group>
+
+    <group ns="targetship2">
+      <node name="targetship2_state" pkg="autonoship_simulation" type="target_state.py" >
+        <param name="nm" value="True" />
+      </node>
+    </group>
+
+    <group ns="targetship3">
+      <node name="targetship3_state" pkg="autonoship_simulation" type="target_state.py" >
+        <param name="nm" value="True" />
+      </node>
+    </group>
+
 
     <group if="$(arg ownship)">
       <include file="$(find autonoship_simulation)/launch/autonoship_keys2rudder.launch" /> 
