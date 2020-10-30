@@ -8,23 +8,23 @@
       <selfCollide>true</selfCollide>
       <sensor name="logical_camera" type="logical_camera">
         <logical_camera>
-          <near>50</near>
+          <near>10</near>
           <far>92600</far>  <!-- 50nm -->
-          <horizontal_fov>0.1</horizontal_fov>
-          <aspect_ratio>0.7</aspect_ratio>
+          <horizontal_fov>0.035</horizontal_fov>
+          <aspect_ratio>0.1</aspect_ratio>
         </logical_camera>
 
         <visualize>true</visualize>
         <always_on>true</always_on>
-        <update_rate>100</update_rate>
+        <update_rate>500</update_rate>
       </sensor>
   </gazebo>
 
   <gazebo>
     <plugin name="ros_logical_camera" filename="libROSLogicalCameraPlugin.so">
-          <robotNamespace>own_ship</robotNamespace>
+          <robotNamespace>ownship</robotNamespace>
           <image_topic_ros>logical_camera</image_topic_ros>
-          <rpm>50.0</rpm>
+          <rpm>24.0</rpm>
           <P>0.01</P>
           <I>0.0</I>
           <D>0.0</D>
@@ -32,7 +32,7 @@
             <noise>
               <type>gaussian</type>
               <mean>0.0</mean>
-              <stddev>0.001</stddev>
+              <stddev>0.01</stddev>
             </noise>
           </position_noise>
           <orientation_noise>
