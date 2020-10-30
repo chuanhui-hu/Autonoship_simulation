@@ -23,7 +23,7 @@ According to the link, open a terminal and run:
 
     sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-### 2. update Gazebo  (updated on 10/30/2020)
+### 2. update Gazebo
 
     sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
     wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
@@ -33,7 +33,7 @@ According to the link, open a terminal and run:
     sudo apt-get install libgazebo7-dev libignition-math2-dev
 
 
-### 3. Create Workspace & Environment Configuration  (updated on 10/30/2020)
+### 3. Create Workspace & Environment Configuration
 
 Download the /autonoship_simulation and /usv_gazebo_plugins into the /home directory. In a terminal, run:
  
@@ -54,7 +54,7 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
     cd scripts
     chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py
 
-### 4. Install ARIAC packages  (updated on 10/30/2020)
+### 4. Install ARIAC packages
 
     mkdir -p ~/ariac_ws/src
     cd ~/ariac_ws/src
@@ -65,7 +65,7 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
     source ~/ariac_ws/devel/setup.bash
     echo "source ~/ariac_ws/devel/setup.bash" >> ~/.bashrc
 
-### 5. Usage  (updated on 10/30/2020)
+### 5. Usage
 
 To control the ownship with keyboard ("w, a, s, d, q, e"), in a terminal, run:
     
