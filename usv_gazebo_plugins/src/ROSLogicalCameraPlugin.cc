@@ -196,7 +196,7 @@ void ROSLogicalCameraPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sd
   this->model->GetJointController()->AddJoint(model->GetJoint("radar_rotation_link_joint"));
   std::string name = model->GetJoint("radar_rotation_link_joint")->GetScopedName();
   this->model->GetJointController()->SetVelocityPID(name, common::PID(P_, I_, D_));
-  this->model->GetJointController()->SetVelocityTarget(name, w_);
+  this->model->GetJointController()->SetVelocityTarget(name, -w_);
   this->model->GetJointController()->Update();
 }
 
@@ -411,7 +411,7 @@ void ROSLogicalCameraPlugin::UpdateRpm(const std_msgs::Float64 &w)
     // this->jointRadar_->SetVelocity(0, w_);
     // this->model->GetLink("radar_link")->SetAngularVel({0, 0, w_});
     // this->model->GetLink("radar_link")->AddTorque({0, 0, 1});
-    this->model->GetJointController()->SetVelocityTarget(model->GetJoint("radar_rotation_link_joint")->GetScopedName(), w_);
+    this->model->GetJointController()->SetVelocityTarget(model->GetJoint("radar_rotation_link_joint")->GetScopedName(), -w_);
     this->model->GetJointController()->Update();
 
     // ROS_INFO_STREAM("radar joint rpm: "<< this->jointRadar_->GetVelocity(5)/2.0/3.1415926*60.0);

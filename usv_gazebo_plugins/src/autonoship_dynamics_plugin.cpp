@@ -164,6 +164,8 @@ void AutonoshipPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
   u1_ = 0.0;
   u2_ = 0.0;
 
+
+
   // Wave parameters
   std::ostringstream buf;
   math::Vector2d tmpm;
@@ -216,7 +218,8 @@ void AutonoshipPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
 	    ros::init_options::NoSigintHandler|ros::init_options::AnonymousName);
   rosnode_ = new ros::NodeHandle( node_namespace_ );
 
-
+  vel_x_pub_ = rosnode_->advertise<std_msgs::Float64>("vel_x", 1, true);
+  yaw_pub_ = rosnode_->advertise<std_msgs::Float64>("yaw", 1, true);
 
   /* listen to the rudder command */
   u1_sub_ = rosnode_->subscribe("u1", 1, &AutonoshipPlugin::UpdateU1, this );
@@ -285,6 +288,14 @@ void AutonoshipPlugin::UpdateChild()
 
   // ROS_INFO_STREAM(model_->GetName() << " vel_linear_body_: "<< vel_linear_body_
   //                                   << " at time: " << time_now);
+
+  std_msgs::Float64 vel_x_;
+  vel_x_.data = vel_linear_body_.x;
+  vel_x_pub_.publish(vel_x_);
+
+  std_msgs::Float64 yaw_;
+  yaw_.data = euler_.z;
+  yaw_pub_.publish(yaw_);
 
   math::Vector3 accel_linear_body = (vel_linear_body_ - prev_lin_vel_) /dt;
   prev_lin_vel_ = vel_linear_body_;

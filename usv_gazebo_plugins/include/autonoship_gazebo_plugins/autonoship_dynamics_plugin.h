@@ -91,6 +91,8 @@ namespace gazebo
     ros::Publisher sensor_state_pub_;
     ros::Publisher odom_pub_;
     ros::Publisher joint_state_pub_;
+    ros::Publisher vel_x_pub_;
+    ros::Publisher yaw_pub_;
     
     ros::Subscriber u1_sub_;
     ros::Subscriber u2_sub_;
