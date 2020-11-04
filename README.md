@@ -52,7 +52,7 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
 
     roscd autonoship_simulation
     cd scripts
-    chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py
+    chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py true_state.py
 
 ### 4. Install ARIAC packages
 
