@@ -220,6 +220,7 @@ void AutonoshipPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
 
   vel_x_pub_ = rosnode_->advertise<std_msgs::Float64>("vel_x", 1, true);
   yaw_pub_ = rosnode_->advertise<std_msgs::Float64>("yaw", 1, true);
+  twist_pub_ = rosnode_->advertise<geometry_msgs::Twist>("twist", 1, true);
 
   /* listen to the rudder command */
   u1_sub_ = rosnode_->subscribe("u1", 1, &AutonoshipPlugin::UpdateU1, this );
@@ -276,6 +277,14 @@ void AutonoshipPlugin::UpdateChild()
   // Get Pose/Orientation from Gazebo (if no state subscriber is active)
   pose_ = link_->GetWorldPose();
   euler_ = pose_.rot.GetAsEuler();
+ 
+  twist_.linear.x = pose_.pos[0];
+  twist_.linear.y = pose_.pos[1];
+  twist_.linear.z = pose_.pos[2];
+  twist_.angular.x = euler_[0];
+  twist_.angular.y = euler_[1];
+  twist_.angular.z = euler_[2];
+  twist_pub_.publish(twist_);
 
   // Get body-centered linear and angular rates
   vel_linear_body_ = link_->GetRelativeLinearVel();  
