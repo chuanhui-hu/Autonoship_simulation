@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
+import sys
 import numpy as np
 
 from autonoship_simulation.msg import targetship_state
@@ -9,6 +10,12 @@ from geometry_msgs.msg import Twist
 
 ownship = rospy.get_param("~ownship", "ownship")
 targetship = rospy.get_param("~targetship", "targetship1")
+
+print(sys.argv)
+if len(sys.argv) == 3:
+  ownship = sys.argv[1]
+  targetship = sys.argv[2]
+rospy.loginfo("frame: ", ownship, ", target: ", targetship)
 
 own_twist = Twist()
 own_speed = 0
@@ -39,8 +46,8 @@ def update_relevant():
   own = [own_twist.linear.x, own_twist.linear.y, own_twist.angular.z]
   target = [target_twist.linear.x, target_twist.linear.y, target_twist.angular.z]
 
-  rospy.loginfo(own)
-  rospy.loginfo(target)
+  # rospy.loginfo(own)
+  # rospy.loginfo(target)
 
   if not (np.linalg.norm(own) and np.linalg.norm(target)):
     return
