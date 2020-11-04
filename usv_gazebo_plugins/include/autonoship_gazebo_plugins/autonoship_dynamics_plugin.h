@@ -36,6 +36,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 //ROS
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/TwistWithCovariance.h>
+#include <geometry_msgs/Twist.h>
 #include <geometry_msgs/PoseWithCovariance.h>
 //#include <usv_msgs/UsvDrive.h>
 //#include <usv_gazebo_plugins/UsvDrive.h>
@@ -93,6 +94,7 @@ namespace gazebo
     ros::Publisher joint_state_pub_;
     ros::Publisher vel_x_pub_;
     ros::Publisher yaw_pub_;
+    ros::Publisher twist_pub_;
     
     ros::Subscriber u1_sub_;
     ros::Subscriber u2_sub_;
@@ -131,6 +133,8 @@ namespace gazebo
     Eigen::VectorXd Dvec_;
 
     Eigen::VectorXd TVec_;
+
+    geometry_msgs::Twist twist_;
 
     // For Buoyancy calculation
     float buoy_frac_;
