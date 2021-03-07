@@ -19,8 +19,14 @@
     </include>
 
     <gui fullscreen='0'>
-      <camera name='user_camera'>
-        <pose>-500 0 2000 0 1.1 0</pose>
+      <camera name='gzclient_camera'>
+        <track_visual>
+          <!-- <name>observer</name> -->
+          <min_dist>1.0</min_dist>
+          <max_dist>20000.0</max_dist>
+          <static>false</static>
+        </track_visual>
+        <pose>-1000 0 5000 0 1.1 0</pose>
         <view_controller>orbit</view_controller>
       </camera>
     </gui>

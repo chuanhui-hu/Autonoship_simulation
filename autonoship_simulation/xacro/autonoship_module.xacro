@@ -11,9 +11,33 @@
     <xacro:include filename="$(find autonoship_simulation)/urdf/container_ship_noradar.xacro" />  
   </xacro:unless>
 
+
+
+
   <!-- Attach hydrodynamics plugin -->
+
+  <xacro:if value="$(arg ownship)">
+    <xacro:include filename="$(find autonoship_simulation)/autonoship_gazebo/urdf/FMI_gazebo_dynamics_plugin.xacro" />
+    <xacro:FMI_dynamics_gazebo name="FMI_dynamics_plugin"/>
+  </xacro:if>
+  <xacro:unless value="$(arg ownship)">
+    <xacro:include filename="$(find autonoship_simulation)/autonoship_gazebo/urdf/autonoship_gazebo_dynamics_plugin.xacro" />
+    <xacro:autonoship_dynamics_gazebo name="autonoship_dynamics_plugin"/>
+  </xacro:unless>
+
+<!--
   <xacro:include filename="$(find autonoship_simulation)/autonoship_gazebo/urdf/autonoship_gazebo_dynamics_plugin.xacro" />
   <xacro:autonoship_dynamics_gazebo name="autonoship_dynamics_plugin"/>
+-->
+<!--
+  <xacro:include filename="$(find autonoship_simulation)/autonoship_gazebo/urdf/FMI_gazebo_dynamics_plugin.xacro" />
+  <xacro:FMI_dynamics_gazebo name="FMI_dynamics_plugin"/>
+-->
+
+
+
+
+
 
   <!-- Attach radar plugin -->
   <xacro:if value="$(arg radar)">

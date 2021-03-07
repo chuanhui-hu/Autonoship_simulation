@@ -9,6 +9,7 @@
   <arg name="wind" default="false"/> 
   <arg name="p3d" default="false"/> 
   <arg name="radar" default="false"/> 
+  <arg name="control" default="false"/> 
 
   <arg name="bearing" default="0.0" />   <!-- degrees -->
   <arg name="distance" default="0.0" />  <!--  miles  -->
@@ -49,14 +50,14 @@
 
     <!-- velocity initialization -->
     <node name="initial_vel_pid" pkg="pid" type="controller" >
-      <param name="Kp" value="1000000.0" />
+      <param name="Kp" value="1000.0" />
       <param name="Ki" value="0.1" />
       <param name="Kd" value="1.0" />
-      <param name="upper_limit" value="10000000" />
+      <param name="upper_limit" value="1000" />
       <param name="lower_limit" value="0" />
       <param name="windup_limit" value="10" />
-      <param name="max_loop_frequency" value="10.0" />
-      <param name="min_loop_frequency" value="10.0" />
+      <param name="max_loop_frequency" value="100.0" />
+      <param name="min_loop_frequency" value="100.0" />
       <param name="topic_from_controller" value="u2" />
       <param name="topic_from_plant" value="vel_x" />      
     </node>
@@ -97,10 +98,16 @@
     </group>
 
 
+<!--
     <group if="$(arg ownship)">
       <include file="$(find autonoship_simulation)/launch/autonoship_keys2rudder.launch" /> 
     </group>
+-->
 
+  </group>
+
+  <group if="$(arg control)">
+    <include file="$(find collision_avoidance)/launch/collision_avoidance.launch" /> 
   </group>
 
 </launch>

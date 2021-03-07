@@ -41,11 +41,12 @@
     <arg name="namespace" value="ownship" />
     <arg name="wind" value="false"/> 
     <arg name="radar" value="$(arg radar)"/>
-    <arg name="front_camera" value="true"/>
+    <arg name="front_camera" value="false"/>
     <arg name="gps" value="true"/>
     <arg name="imu" value="true"/>
     <arg name="p3d" value="false"/> 
     <arg name="ownship" value="true" />
+    <arg name="control" value="true" />
 
     <arg name="bearing" value="0.0" />
     <arg name="distance" value="0.0" />

@@ -21,7 +21,7 @@
   </gazebo>
 
   <gazebo>
-    <plugin name="ros_logical_camera" filename="libROSLogicalCameraPlugin.so">
+    <plugin name="ros_logical_camera" filename="libautonoshipLogicalCameraPlugin.so">
           <robotNamespace>ownship</robotNamespace>
           <image_topic_ros>logical_camera</image_topic_ros>
           <rpm>24.0</rpm>

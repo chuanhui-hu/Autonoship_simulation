@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 import rospy
 from std_msgs.msg import Float64
@@ -22,7 +22,7 @@ def keys_cb(msg, pub_vec):
   u1_pub = pub_vec[0]
   u2_pub = pub_vec[1]
 
-  scale = 10000000.0
+  scale = 1000.0
   if len(msg.data) == 0 or not key_mapping.has_key(msg.data[0]):
     return
   rudder = key_mapping[msg.data[0]][0]

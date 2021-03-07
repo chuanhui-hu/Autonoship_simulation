@@ -19,8 +19,9 @@
 	<zW>500000.0</zW> 
 	<kP>2000.0</kP>
 	<mQ>2000.0</mQ>
-	<nR>0.0</nR>
-	<nRR>22475260.946184088</nRR> 
+	<nR>18398655.83570557</nR>
+        <nRR>0.0</nRR> 
+	<!-- <nRR>22475260.946184088</nRR> -->
 	<maxCmd>1.0</maxCmd>
 	<maxForceFwd>40000.0</maxForceFwd>
 	<maxForceRev>-40000.0</maxForceRev>
