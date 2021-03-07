@@ -32,8 +32,24 @@ According to the link, open a terminal and run:
     sudo apt-get install gazebo7
     sudo apt-get install libgazebo7-dev libignition-math2-dev
 
+### 3. install tensorflow
 
-### 3. Create Workspace & Environment Configuration
+Install tensorflow according to: https://www.tensorflow.org/install, or try:
+
+    pip install tensorflow
+    
+### 4. install FMI-library
+
+Install FMI Library according to https://github.com/modelon-community/fmi-library and https://jmodelica.org/fmil/FMILibrary-2.0.3-htmldoc/index.html, or try:
+
+    cd 
+    git clone https://github.com/modelon-community/fmi-library.git
+    mkdir build-fmil; cd build-fmil
+    cmake -DFMILIB_INSTALL_PREFIX=FMI_library
+    make install test
+    
+
+### 5. Create Workspace & Environment Configuration
 
 Download the /autonoship_simulation and /usv_gazebo_plugins into the /home directory. In a terminal, run:
  
@@ -43,6 +59,7 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
 
     cp ~/autonoship_simulation ~/autonoship/src -r
     cp ~/usv_gazebo_plugins ~/autonoship/src -r
+    cp ~/collision_avoidance ~/autonoship/src -r
     
     sudo apt-get install ros-kinetic-hector-gazebo-plugins ros-kinetic-pid  
     
@@ -53,8 +70,14 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
     roscd autonoship_simulation
     cd scripts
     chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py true_state.py
+    
+    roscd collision_avoidance
+    cd scripts
+    chmod +x predict_action.py
+    
+    echo  'export GAZEBO_RESOURCE_PATH=~/autonoship/src/usv_gazebo_plugins/fmu:$GAZEBO_RESOURCE_PATH' >> ~/.bashrc 
 
-### 4. Install ARIAC packages
+### 6. Install ARIAC packages
 
     mkdir -p ~/ariac_ws/src
     cd ~/ariac_ws/src
@@ -65,11 +88,11 @@ Download the /autonoship_simulation and /usv_gazebo_plugins into the /home direc
     source ~/ariac_ws/devel/setup.bash
     echo "source ~/ariac_ws/devel/setup.bash" >> ~/.bashrc
 
-### 5. Usage
+### 7. Usage
 
-To control the ownship with keyboard ("w, a, s, d, q, e"), in a terminal, run:
-    
-    roslaunch autonoship_simulation autonoship_gazebo.launch
+To test the collision avoidance module, run scenario 1:
+
+    roslaunch autonoship_simulation autonoship_gazebo.launch scenario:=scenario1
     
 To run a certain testing scenario (e.g. scenario8), run:
     
@@ -91,7 +114,7 @@ To test the radar tracking module, echo the state of a targetship (e.g. targetsh
 
     rostopic echo ownship/targetship1/
     
-### 6. Issues
+### 8. Issues
 
 If not all the targetships are shown in the simulation:
 
