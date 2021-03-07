@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(usv_gazebo_plugins)
 
+# include(ExternalProject)
+# externalproject_add(FMILibraryProject
+#   GIT_REPOSITORY https://github.com/modelon-community/fmi-library.git
+#   GIT_TAG 2.1
+#   TIMEOUT 60
+# )
+# externalproject_get_property(FMILibraryProject INSTALL_DIR)
+# set(FMILibraryProject_INCLUDE_DIR "~/install/include")
+# set(FMILibraryProject_LIB_DIR "~/install/lib")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -19,6 +29,17 @@ find_package(catkin REQUIRED COMPONENTS
   )
 
 
+##########################  find FMILibrary  ##########################
+
+set(FMILibrary_INCLUDE_DIR ~/FMI_library/include)
+set(FMILibrary_LIBRARY ~/FMI_library/lib)
+
+##########################  find FMILibrary  ##########################
+message("${FMILibrary_INCLUDE_DIR}")
+message("${FMILibrary_LIBRARY}")
+
+# find_package(FMILibrary REQUIRED)
+
 ## Gazebo
 find_package(gazebo REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
@@ -33,7 +54,7 @@ find_package(Eigen REQUIRED)
 #include_directories(${EIGEN_INCLUDE_DIRS}) 
 #add_definitions(${EIGEN_DEFINITIONS})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS} -std=c++11 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS} -std=c++11 -lstdc++fs -Wall -Wextra")
 
 
 ########################
@@ -73,7 +94,7 @@ catkin_package(
    INCLUDE_DIRS include
    CATKIN_DEPENDS roscpp message_runtime std_msgs geometry_msgs nav_msgs
    DEPENDS 
-   LIBRARIES
+   LIBRARIES ${PROJECT_NAME}
 )
 
 ###########
@@ -86,7 +107,12 @@ include_directories( include
   ${catkin_INCLUDE_DIRS} 
   ${GAZEBO_INCLUDE_DIRS}
   ${Eigen_INCLUDE_DIRS}
+  ${FMILibrary_INCLUDE_DIR}
   )
+
+# add_library(${PROJECT_NAME}_fmilib STATIC IMPORTED)
+# set_target_properties(${PROJECT_NAME}_fmilib PROPERTIES IMPORTED_LOCATION ${FMILibraryProject_LIB_DIR}/libfmilib.a)
+
 link_directories(
   ${GAZEBO_LIBRARY_DIRS}
   ${catkin_LIBRARY_DIRS}
@@ -142,11 +168,38 @@ target_link_libraries(autonoship_dynamics_plugin
   ${Eigen_LIBRARIES}
   )
 
-add_library(ROSLogicalCameraPlugin
-  src/ROSLogicalCameraPlugin.cc
+add_library(FMI_dynamics_plugin
+  src/FMI_dynamics_plugin.cpp
+  src/FMUCoSimulation.cc
+  src/SDFConfigurationParsing.cc
   )
 
-target_link_libraries(ROSLogicalCameraPlugin
+add_dependencies(FMI_dynamics_plugin
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} 
+  ${catkin_EXPORTED_TARGETS}
+#   ${FMILibraryProject_LIB_DIR}/libfmilib_shared.so
+)
+
+
+
+target_link_libraries(FMI_dynamics_plugin
+  ${catkin_LIBRARIES}
+  ${GAZEBO_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${Eigen_LIBRARIES}
+  ${FMILibrary_LIBRARY}/libfmilib_shared.so
+  stdc++fs
+  )
+
+
+
+
+
+add_library(autonoshipLogicalCameraPlugin
+  src/autonoshipLogicalCameraPlugin.cc
+  )
+
+target_link_libraries(autonoshipLogicalCameraPlugin
   ${catkin_LIBRARIES}
   ${GAZEBO_LIBRARIES}
   ${Boost_LIBRARIES}
@@ -219,3 +272,6 @@ target_link_libraries(frame_test
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
+

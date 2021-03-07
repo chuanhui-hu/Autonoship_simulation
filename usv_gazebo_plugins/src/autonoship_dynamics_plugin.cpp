@@ -20,6 +20,8 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+// #include <gazebo_fmi/FMUCoSimulation.hh>
+
 #include <boost/thread.hpp>
 #include <nav_msgs/Odometry.h>
 #include <sensor_msgs/JointState.h>
@@ -353,7 +355,7 @@ void AutonoshipPlugin::UpdateChild()
   tf2::Transform xform_v = tf2::Transform(vq);
 
   // Rudder input
-  TVec_ << u2_, 0, 0, 0, 0, u1_;
+  TVec_ << u2_*143620*0.034296296296, 0, 0, 0, 0, u1_*1357268841*0.1555/73.77;
   ROS_DEBUG_STREAM("Vessel Rudder Input: U1:" << TVec_(5) <<
 		  " U2:"<<TVec_(0));
 
