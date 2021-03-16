@@ -51,7 +51,7 @@ Install FMI Library according to https://github.com/modelon-community/fmi-librar
 
 ### 5. Create Workspace & Environment Configuration
 
-Download the /autonoship_simulation and /usv_gazebo_plugins into the /home directory. In a terminal, run:
+Download the /autonoship_simulation, /collision_avoidance and /usv_gazebo_plugins into the /home directory. In a terminal, run:
  
     mkdir -p ~/autonoship/src
     cd ~/autonoship/
