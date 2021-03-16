@@ -45,7 +45,7 @@ Install FMI Library according to https://github.com/modelon-community/fmi-librar
     cd 
     git clone https://github.com/modelon-community/fmi-library.git
     mkdir build-fmil; cd build-fmil
-    cmake -DFMILIB_INSTALL_PREFIX=FMI_library
+    cmake -DFMILIB_INSTALL_PREFIX=FMI_library ~/fmi-library
     make install test
     
 
