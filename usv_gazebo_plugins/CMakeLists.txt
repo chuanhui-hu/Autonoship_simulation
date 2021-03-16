@@ -214,16 +214,16 @@ target_link_libraries(autonoshipLogicalCameraPlugin
 #  usv_gazebo_dynamics_plugin
 #  )
 
-add_executable(frame_test
-  test/frame_test.cpp
-  )
+#add_executable(frame_test
+#  test/frame_test.cpp
+#  )
 
-target_link_libraries(frame_test
-  ${catkin_LIBRARIES}
-  ${GAZEBO_LIBRARIES}
-  ${Boost_LIBRARIES}
-  ${Eigen_LIBRARIES}
-  )
+#target_link_libraries(frame_test
+#  ${catkin_LIBRARIES}
+#  ${GAZEBO_LIBRARIES}
+#  ${Boost_LIBRARIES}
+#  ${Eigen_LIBRARIES}
+#  )
   
 #############
 ## Install ##
