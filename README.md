@@ -48,7 +48,7 @@ Download the /autonoship_simulation, /collision_avoidance and /usv_gazebo_plugin
     catkin_make
 
     git clone https://github.com/Autonoship/Autonoship_simulation.git
-    mv Autonoship_simulation/autonoship_simulation/ Autonoship_simulation/collision_avoidance/ Autonoship_simulation/navigation_control/ Autonoship_simulation/usv_gazebo_plugins/ .
+    mv Autonoship_simulation/autonoship_simulation/ Autonoship_simulation/collision_avoidance/ Autonoship_simulation/navigation_control/ Autonoship_simulation/usv_gazebo_plugins/ src
 
     sudo apt-get install ros-noetic-hector-gazebo-plugins ros-noetic-pid  
 
