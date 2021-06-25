@@ -11,32 +11,22 @@ According to the link, open a terminal and run:
 
     sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
     sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-    
-    sudo apt-get update
-    sudo apt-get install ros-kinetic-desktop-full
-    
+    sudo apt update
+    sudo apt install ros-noetic-desktop-full
+    echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+    source ~/.bashrc
+    sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+    sudo apt install python3-rosdep
     sudo rosdep init
     rosdep update
 
-    echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-    source /opt/ros/kinetic/setup.bash
+### 2. install Gazebo
 
-    sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
+    sudo apt-get install libgazebo11-dev libignition-math6-dev
 
-### 2. update Gazebo
+### 3. install tensorflow (placeholder)
 
-    sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-    wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-    
-    sudo apt-get update
-    sudo apt-get install gazebo7
-    sudo apt-get install libgazebo7-dev libignition-math2-dev
-
-### 3. install tensorflow
-
-Install tensorflow according to: https://www.tensorflow.org/install, or try:
-
-    pip install tensorflow
+The collision avoidance module will rely on the tensorflow.
     
 ### 4. install FMI-library
 
@@ -60,9 +50,9 @@ Download the /autonoship_simulation, /collision_avoidance and /usv_gazebo_plugin
     cp ~/autonoship_simulation ~/autonoship/src -r
     cp ~/usv_gazebo_plugins ~/autonoship/src -r
     cp ~/collision_avoidance ~/autonoship/src -r
-    
-    sudo apt-get install ros-kinetic-hector-gazebo-plugins ros-kinetic-pid  
-    
+
+    sudo apt-get install ros-noetic-hector-gazebo-plugins ros-noetic-pid  
+
     catkin_make
     source devel/setup.bash
     echo  'source ~/autonoship/devel/setup.bash' >> ~/.bashrc 
@@ -70,11 +60,12 @@ Download the /autonoship_simulation, /collision_avoidance and /usv_gazebo_plugin
     roscd autonoship_simulation
     cd scripts
     chmod +x key_publisher.py keys_to_rudder.py radar_reader.py radar_tracking.py setpoint_pub.py state_reader.py target_state.py true_state.py
-    
+
     roscd collision_avoidance
     cd scripts
     chmod +x predict_action.py
-    
+
+    pip install pyyaml
     echo  'export GAZEBO_RESOURCE_PATH=~/autonoship/src/usv_gazebo_plugins/fmu:$GAZEBO_RESOURCE_PATH' >> ~/.bashrc 
 
 ### 6. Install ARIAC packages
