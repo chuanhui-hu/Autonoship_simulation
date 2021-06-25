@@ -1,11 +1,11 @@
-# Autonoship_simulation
+# Autonoship_simulation (Under Construction)
 autonoship simulator based on Gazebo and ROS
 
 
 ### 1. System Requirements
 
-This simulation is built on [Ubuntu 16.04](http://releases.ubuntu.com/16.04/) and [ROS kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu). The Ubuntu can be either a real machine or a virtual machine.
-Before start, please follow the link [ROS kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu) to install ROS kinetic on a Ubuntu 16.04 first.
+This simulation is built on [Ubuntu 20.04](https://releases.ubuntu.com/20.04/) and [ROS noetic](http://wiki.ros.org/noetic/Installation/Ubuntu). The Ubuntu can be either a real machine or a virtual machine.
+Before start, please follow the link [ROS noetic](http://wiki.ros.org/noetic/Installation/Ubuntu) to install ROS noetic on a Ubuntu 20.04 first.
 
 According to the link, open a terminal and run:
 
