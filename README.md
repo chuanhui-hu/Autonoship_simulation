@@ -47,9 +47,8 @@ Download the /autonoship_simulation, /collision_avoidance and /usv_gazebo_plugin
     cd ~/autonoship/
     catkin_make
 
-    cp ~/autonoship_simulation ~/autonoship/src -r
-    cp ~/usv_gazebo_plugins ~/autonoship/src -r
-    cp ~/collision_avoidance ~/autonoship/src -r
+    git clone https://github.com/Autonoship/Autonoship_simulation.git
+    mv Autonoship_simulation/autonoship_simulation/ Autonoship_simulation/collision_avoidance/ Autonoship_simulation/navigation_control/ Autonoship_simulation/usv_gazebo_plugins/ .
 
     sudo apt-get install ros-noetic-hector-gazebo-plugins ros-noetic-pid  
 
@@ -67,17 +66,14 @@ Download the /autonoship_simulation, /collision_avoidance and /usv_gazebo_plugin
 
     pip install pyyaml
     echo  'export GAZEBO_RESOURCE_PATH=~/autonoship/src/usv_gazebo_plugins/fmu:$GAZEBO_RESOURCE_PATH' >> ~/.bashrc 
+    
+    pip install pygame
+    pip install pymunk==4.0.0
+    pip install pyyaml
 
-### 6. Install ARIAC packages
+### 6. Install FMI Adapter
 
-    mkdir -p ~/ariac_ws/src
-    cd ~/ariac_ws/src
-    git clone https://bitbucket.org/osrf/ariac -b ariac_2017
-
-    cd ~/ariac_ws
-    catkin_make
-    source ~/ariac_ws/devel/setup.bash
-    echo "source ~/ariac_ws/devel/setup.bash" >> ~/.bashrc
+    sudo apt-get install ros-noetic-fmi-adapter
 
 ### 7. Usage
 
@@ -105,17 +101,3 @@ To test the radar tracking module, echo the state of a targetship (e.g. targetsh
 
     rostopic echo ownship/targetship1/
     
-### 8. Issues
-
-If not all the targetships are shown in the simulation:
-
-    try configure the range of the camera in the menu bar: World -> GUI -> camera -> clip -> far
-
-If gazebo exports error "No namespace found", try:
-
-    1. Update gazebo to a later version(this problem happens with gazebo 7.0.0).
-    2. In ~/autonoship/src/autonoship_simulation/worlds/autonoship.world, comment out the "include model://sun" part
-
-If the simulation is extremely slow or even fails to start:
-
-    1. try running the scenario with less targetships (e.g. scenario1 only has one targetship)
